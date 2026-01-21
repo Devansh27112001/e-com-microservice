@@ -1,0 +1,96 @@
+package com.app.userserviceecom.service;
+
+import com.app.userserviceecom.repository.UserRepo;
+import com.app.userserviceecom.dto.AddressDto;
+import com.app.userserviceecom.dto.UserRequest;
+import com.app.userserviceecom.dto.UserResponse;
+import com.app.userserviceecom.model.Address;
+import com.app.userserviceecom.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepo repository;
+
+    List<User> users = new ArrayList<>();
+
+
+    public List<UserResponse> getAllUsers() {
+        return repository.findAll().stream()
+                .map(this::mapUserToUserResponse)
+                .collect(Collectors.toList());
+    }
+
+    public void addUser(UserRequest userRequest) {
+        User user = new User();
+
+        // Mapping UserRequest to User.
+        updateUserRequestToUser(user,userRequest);
+
+        // Saving the user in database.
+        repository.save(user);
+    }
+
+
+
+    public UserResponse getUserById(Long id) {
+        // NOTE: If you don't want to use .orElse(null), we have to change the return type from
+        //       UserResponse to Optional<UserResponse>. Then in the controller we would have to use,
+        //  userService.getUserbyId(id).map(ResponseEntity::ok) .orElseGet(() -> ResponseEntity.notFound().build());
+        return repository.findById(id).map(this::mapUserToUserResponse).orElse(null);
+
+    }
+
+    public boolean updateUserById(Long id, UserRequest userRequest) {
+        return repository.findById(id).map(existingUser -> {
+           updateUserRequestToUser(existingUser,userRequest);
+            repository.save(existingUser);
+            return true;
+        }).orElse(false);
+    }
+
+    private void updateUserRequestToUser(User user, UserRequest userRequest) {
+        user.setFirstName(userRequest.getFirstName());
+        user.setLastName(userRequest.getLastName());
+        user.setEmail(userRequest.getEmail());
+        user.setPhone(userRequest.getPhone());
+
+        if(userRequest.getAddress()!=null){
+            Address address = new Address();
+            address.setCity(userRequest.getAddress().getCity());
+            address.setState(userRequest.getAddress().getState());
+            address.setCountry(userRequest.getAddress().getCountry());
+            address.setStreet(userRequest.getAddress().getStreet());
+            address.setZipcode(userRequest.getAddress().getZipcode());
+            user.setAddress(address);
+        }
+    }
+
+    private UserResponse mapUserToUserResponse(User user) {
+        UserResponse response = new UserResponse();
+        response.setId(String.valueOf(user.getId()));
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setEmail(user.getEmail());
+        response.setPhone(user.getPhone());
+        response.setRole(user.getRole());
+
+        if(user.getAddress() != null){
+            AddressDto addressDto = new AddressDto();
+            addressDto.setStreet(user.getAddress().getStreet());
+            addressDto.setCity(user.getAddress().getCity());
+            addressDto.setState(user.getAddress().getState());
+            addressDto.setZipcode(user.getAddress().getZipcode());
+            addressDto.setCountry(user.getAddress().getCountry());
+            response.setAddress(addressDto);
+        }
+        return response;
+    }
+}

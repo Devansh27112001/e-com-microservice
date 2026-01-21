@@ -1,0 +1,49 @@
+# --- Java / Maven ---
+**/target/
+**/*.jar
+**/*.war
+**/*.ear
+# We keep the wrapper files so everyone can run ./mvnw
+!**/.mvn/wrapper/maven-wrapper.jar
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+**/out/
+gen/
+# Ignore specific workspace files but keep project config if needed
+.idea/workspace.xml
+.idea/shelf/
+.idea/tasks.xml
+
+# --- VS Code ---
+.vscode/
+*.code-workspace
+
+# --- Eclipse ---
+.settings/
+.project
+.classpath
+.factorypath
+
+# --- Local Environment / Secrets ---
+.env
+.env.local
+**/application-local.properties
+**/application-dev.yml
+
+# --- Docker ---
+# If you use a bind mount for postgres data (e.g., ./postgres-data), ignore it!
+**/postgres-data/
+**/pgadmin-data/
+
+# --- Log files ---
+*.log
+**/logs/
+
+# --- Operating System ---
+.DS_Store
+Thumbs.db
+
+# --- Spring Initializr Junk ---
+HELP.md
