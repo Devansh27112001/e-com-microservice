@@ -1,0 +1,56 @@
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "8001:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+
+volumes:
+  postgres:
+  pgadmin:
+
+
+# Steps to connect to the postgres Database:
+# 1. Using the local pgAdmin app installed on you machine:
+#   -> Open the App
+#   -> Click on Register --> Server
+#   -> In the General Tab, enter the name.
+#   -> In the connection tab enter Host: 'localhost', port:'5433', username and password as mentioned
+#   -> Click on Save
+
+# 2. Using the pgAdmin app on the port specified in the docker service (Here, 8080):
+#   -> Open localhost:8080
+#   -> Click on Register --> Server
+#   -> In the General Tab, enter the name.
+#   -> In the connection tab enter Host: 'postgres', port:'5432', username and password as mentioned.
+# Note: In this case, you use port 5432 (the internal port), not 5433.
+#   -> Click on Save

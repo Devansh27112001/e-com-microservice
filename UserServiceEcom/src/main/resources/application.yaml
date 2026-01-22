@@ -4,7 +4,7 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DB_URL:jdbc:postgresql://localhost:5433/ecomdb}
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/userdb}
     username: ${DB_USERNAME:admin}
     password: ${DB_PASSWORD:admin}
   jpa:
