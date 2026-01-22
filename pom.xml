@@ -8,5 +8,6 @@
     <modules>
         <module>UserServiceEcom</module>
         <module>product-service</module>
+        <module>order-service</module>
     </modules>
 </project>

@@ -1,17 +1,17 @@
+#spring.application.name=order-service
 spring:
   application:
-    name: user-service-ecom
-
+    name: order-service
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${DB_URL:jdbc:postgresql://localhost:5433/ecomdb}
     username: ${DB_USERNAME:admin}
     password: ${DB_PASSWORD:admin}
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: on
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 server:
-  port: 8082
+  port: 8083
