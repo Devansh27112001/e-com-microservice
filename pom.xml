@@ -7,5 +7,6 @@
 
     <modules>
         <module>UserServiceEcom</module>
+        <module>product-service</module>
     </modules>
 </project>
