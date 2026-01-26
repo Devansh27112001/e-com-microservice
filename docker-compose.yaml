@@ -5,6 +5,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+#      Custom data path for postgres. The default path is /var/lib/postgresql.
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
@@ -21,6 +22,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
+#      Default path
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
@@ -47,10 +49,11 @@ volumes:
 #   -> In the connection tab enter Host: 'localhost', port:'5433', username and password as mentioned
 #   -> Click on Save
 
-# 2. Using the pgAdmin app on the port specified in the docker service (Here, 8080):
-#   -> Open localhost:8080
+# 2. Using the pgAdmin app on the port specified in the docker service (Here, 8001):
+#   -> Open localhost:8001
 #   -> Click on Register --> Server
 #   -> In the General Tab, enter the name.
 #   -> In the connection tab enter Host: 'postgres', port:'5432', username and password as mentioned.
-# Note: In this case, you use port 5432 (the internal port), not 5433.
+# Note: In this case, you use port 5432 (the internal port), not 5433 as both the services are running on the same
+#       network and can talk to each other using the original ports that are running on.
 #   -> Click on Save

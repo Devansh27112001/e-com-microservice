@@ -30,14 +30,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id){
+    public ResponseEntity<UserResponse> getUserById(@PathVariable String id){
         return new ResponseEntity<>(userService.getUserById(id),  HttpStatus.OK);
 
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id,@RequestBody UserRequest
+    public ResponseEntity<String> updateUser(@PathVariable String id,@RequestBody UserRequest
             userRequest){
         boolean updated = userService.updateUserById(id, userRequest);
         return updated ? ResponseEntity.ok("Updated successfully") : ResponseEntity.notFound().build();

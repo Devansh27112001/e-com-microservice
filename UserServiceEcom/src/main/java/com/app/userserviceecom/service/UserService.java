@@ -40,7 +40,7 @@ public class UserService {
 
 
 
-    public UserResponse getUserById(Long id) {
+    public UserResponse getUserById(String id) {
         // NOTE: If you don't want to use .orElse(null), we have to change the return type from
         //       UserResponse to Optional<UserResponse>. Then in the controller we would have to use,
         //  userService.getUserbyId(id).map(ResponseEntity::ok) .orElseGet(() -> ResponseEntity.notFound().build());
@@ -48,7 +48,7 @@ public class UserService {
 
     }
 
-    public boolean updateUserById(Long id, UserRequest userRequest) {
+    public boolean updateUserById(String id, UserRequest userRequest) {
         return repository.findById(id).map(existingUser -> {
            updateUserRequestToUser(existingUser,userRequest);
             repository.save(existingUser);

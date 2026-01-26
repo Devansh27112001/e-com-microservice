@@ -1,17 +1,22 @@
 spring:
   application:
     name: user-service-ecom
+  mongodb:
+    uri: mongodb://localhost:27017/userdb
+    database: userdb
+#  POSTGRESQL:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: ${DB_URL:jdbc:postgresql://localhost:5433/userdb}
+#    username: ${DB_USERNAME:admin}
+#    password: ${DB_PASSWORD:admin}
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#   MONGODB:
 
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${DB_URL:jdbc:postgresql://localhost:5433/userdb}
-    username: ${DB_USERNAME:admin}
-    password: ${DB_PASSWORD:admin}
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
-    show-sql: true
 
 server:
   port: 8082
