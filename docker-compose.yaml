@@ -57,3 +57,45 @@ volumes:
 # Note: In this case, you use port 5432 (the internal port), not 5433 as both the services are running on the same
 #       network and can talk to each other using the original ports that are running on.
 #   -> Click on Save
+
+
+#services:
+#  mysql:
+#    container_name: mysql_container
+#    image: mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: devansh
+#      MYSQL_DATABASE: devansh
+#      MYSQL_USER: devansh
+#      MYSQL_PASSWORD: devansh
+#
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+#
+#    ports:
+#      - "3307:3306"
+#
+#    networks:
+#      - mysql
+#    restart: unless-stopped
+#
+#  phpmyadmin:
+#    container_name: phpmyadmin_container
+#    image: phpmyadmin/phpmyadmin
+#    environment:
+#      PMA_HOST: mysql
+#      PMA_PORT: 3306
+#      MYSQL_ROOT_PASSWORD: devansh
+#
+#    ports:
+#      - "8484:80"
+#    networks:
+#      - mysql
+#    restart: unless-stopped
+#
+#networks:
+#  mysql:
+#    driver: bridge
+#
+#volumes:
+#  mysql_data:
