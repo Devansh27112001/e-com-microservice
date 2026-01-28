@@ -1,19 +1,7 @@
 spring:
   mongodb:
-    uri: mongodb://localhost:27017/userdb
-    database: userdb
-#  POSTGRESQL:
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: ${DB_URL:jdbc:postgresql://localhost:5433/userdb}
-#    username: ${DB_USERNAME:admin}
-#    password: ${DB_PASSWORD:admin}
-#  jpa:
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#   MONGODB:
+    uri: ${DB_URI}
+    database: ${DB_DATABASE}
 
 
 server:
