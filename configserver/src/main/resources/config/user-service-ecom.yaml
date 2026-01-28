@@ -1,8 +1,7 @@
 spring:
-  application:
-    name: user-service-ecom
-  config:
-    import: optional:configserver:http://localhost:8888
+  mongodb:
+    uri: mongodb://localhost:27017/userdb
+    database: userdb
 #  POSTGRESQL:
 #  datasource:
 #    driver-class-name: org.postgresql.Driver
