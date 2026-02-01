@@ -10,5 +10,6 @@
         <module>product-service</module>
         <module>order-service</module>
         <module>configserver</module>
+        <module>eureka</module>
     </modules>
 </project>

@@ -47,3 +47,6 @@ Thumbs.db
 
 # --- Spring Initializr Junk ---
 HELP.md
+
+# --- .pdf files ----
+*.pdf

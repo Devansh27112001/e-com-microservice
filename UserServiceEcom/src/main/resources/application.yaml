@@ -3,19 +3,6 @@ spring:
     name: user-service-ecom
   config:
     import: optional:configserver:http://localhost:8888
-#  POSTGRESQL:
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: ${DB_URL:jdbc:postgresql://localhost:5433/userdb}
-#    username: ${DB_USERNAME:admin}
-#    password: ${DB_PASSWORD:admin}
-#  jpa:
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#   MONGODB:
-
 
 server:
   port: 8082
