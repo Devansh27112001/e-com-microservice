@@ -1,5 +1,7 @@
 package com.app.orderservice.service;
 
+import com.app.orderservice.clients.ProductServiceClient;
+import com.app.orderservice.dto.ProductResponse;
 import com.app.orderservice.repository.CartRepo;
 import com.app.orderservice.dto.CartItemRequest;
 import com.app.orderservice.dto.CartItemResponse;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -18,23 +21,15 @@ public class CartService {
     @Autowired
     private CartRepo cartRepo;
 
+    @Autowired
+    private ProductServiceClient productServiceClient;
+
     public boolean addToCart(String id, CartItemRequest request) {
-//        // Look for product
-//        Optional<Product> productOptional = productRepo.findById(request.getProductId());
-//        if(productOptional.isEmpty()){
-//            return false;
-//        }
-//
-//        Product product = productOptional.get();
-//        if(product.getStockQuantity() < request.getQuantity()){
-//            return false;
-//        }
-//
-//        // Look for user
-//        Optional<User> userOpt = userRepo.findById(Long.valueOf(id));
-//        if(userOpt.isEmpty()){
-//            return false;
-//        }
+        // Look for product
+        ProductResponse productResponse = productServiceClient.getProductDetails(request.getProductId());
+        if(productResponse == null || productResponse.getStockQuantity() < request.getQuantity()){
+            return false;
+        }
 //
 //        User user = userOpt.get();
 

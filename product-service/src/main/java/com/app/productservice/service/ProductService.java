@@ -7,6 +7,7 @@ import com.app.productservice.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class ProductService {
     }
 
     public Optional<ProductResponse> findById(Long id){
-        return productRepo.findById(id).map(this::mapToProductResponse);
+        return productRepo.findByIdAndActiveTrue(id).map(this::mapToProductResponse);
     }
 
     public ProductResponse addProduct(ProductRequest  productRequest){

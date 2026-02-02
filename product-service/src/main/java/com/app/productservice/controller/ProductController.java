@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
@@ -54,5 +55,4 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> searchByKeyWord(@RequestParam String keyword){
         return ResponseEntity.ok(productService.searchProduct(keyword));
     }
-
 }
