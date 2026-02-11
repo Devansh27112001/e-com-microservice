@@ -59,7 +59,10 @@ volumes:
 #   -> Open the App
 #   -> Click on Register --> Server
 #   -> In the General Tab, enter the name.
-#   -> In the connection tab enter Host: 'localhost', port:'5433', username and password as mentioned
+#   -> In the connection tab enter Host: 'localhost', port:'5433', username and password as mentioned.
+#       We are connecting to a postgres service running on port 5432 on a network "backend". This port is accessible
+#       only from the inside of the network. But if we want to access the service from outside(pgAdmin4 installed on
+#       local machine), we have to use the port exposed to the outside world(5433) and not 5432.
 #   -> Click on Save
 
 # 2. Using the pgAdmin app on the port specified in the docker service (Here, 8001):

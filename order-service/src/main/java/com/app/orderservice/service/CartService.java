@@ -1,7 +1,9 @@
 package com.app.orderservice.service;
 
 import com.app.orderservice.clients.ProductServiceClient;
+import com.app.orderservice.clients.UserServiceClient;
 import com.app.orderservice.dto.ProductResponse;
+import com.app.orderservice.dto.UserResponse;
 import com.app.orderservice.repository.CartRepo;
 import com.app.orderservice.dto.CartItemRequest;
 import com.app.orderservice.dto.CartItemResponse;
@@ -24,16 +26,22 @@ public class CartService {
     @Autowired
     private ProductServiceClient productServiceClient;
 
+    @Autowired
+    private UserServiceClient userServiceClient;
+
     public boolean addToCart(String id, CartItemRequest request) {
-        // Look for product
+        // validate if the product exists or not
         ProductResponse productResponse = productServiceClient.getProductDetails(request.getProductId());
         if(productResponse == null || productResponse.getStockQuantity() < request.getQuantity()){
             return false;
         }
-//
-//        User user = userOpt.get();
+        // validate if the user exists or not
+        UserResponse userResponse = userServiceClient.getUserById(id);
+           if (userResponse == null) {
+               return false;
+           }
 
-        CartItem existingCartItem = cartRepo.findByUserIdAndProductId(Long.valueOf(id), request.getProductId());
+        CartItem existingCartItem = cartRepo.findByUserIdAndProductId(id, request.getProductId());
         if(existingCartItem != null){
             // Update the quantity
             existingCartItem.setQuantity(existingCartItem.getQuantity() + request.getQuantity());
@@ -42,7 +50,7 @@ public class CartService {
         }else{
             // Create new CartItem
             CartItem cartItem = new CartItem();
-            cartItem.setUserId(Long.valueOf(id));
+            cartItem.setUserId(id);
             cartItem.setProductId(request.getProductId());
             cartItem.setQuantity(request.getQuantity());
             cartItem.setPrice(BigDecimal.valueOf(1000.00));
@@ -53,7 +61,7 @@ public class CartService {
     }
 
     public boolean deleteItemFromCart(String userId, Long productId) {
-        CartItem cartItem = cartRepo.findByUserIdAndProductId(Long.valueOf(userId),productId);
+        CartItem cartItem = cartRepo.findByUserIdAndProductId(userId,productId);
 //        Optional<Product> productOpt = productRepo.findById(productId);
 //        Optional<User> userOpt = userRepo.findById(Long.valueOf(userId));
 
@@ -66,10 +74,10 @@ public class CartService {
 
     public List<CartItem> findCartItemsByUserId(String id){
         //Validation
-        return cartRepo.findAllByUserId(Long.valueOf(id));
+        return cartRepo.findAllByUserId(id);
     }
 
     public void clearCart(String userId) {
-     cartRepo.deleteByUserId(Long.valueOf(userId));
+     cartRepo.deleteByUserId(userId);
     }
 }
