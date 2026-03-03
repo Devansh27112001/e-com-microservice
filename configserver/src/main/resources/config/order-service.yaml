@@ -31,3 +31,14 @@ eureka:
     fetch-registry: true
     http-client:
       type: jdk
+
+logging:
+  level:
+    root: info
+    com.app.orderservice: trace
+  file:
+    name: logs/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      max-file-size: 5MB
+      max-history: 7

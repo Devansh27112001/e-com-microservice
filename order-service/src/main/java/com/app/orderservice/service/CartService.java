@@ -37,7 +37,7 @@ public class CartService {
         }
         // validate if the user exists or not
         UserResponse userResponse = userServiceClient.getUserById(id);
-           if (userResponse == null) {
+           if (userResponse == null || id.trim().isEmpty()) {
                return false;
            }
 

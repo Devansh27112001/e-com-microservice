@@ -30,3 +30,14 @@ eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
+
+logging:
+  level:
+    root: info
+    com.app.productservice: trace
+  file:
+    name: logs/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      max-file-size: 5MB
+      max-history: 7
